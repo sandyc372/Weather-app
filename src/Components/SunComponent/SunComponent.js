@@ -1,23 +1,7 @@
 import React, { Component } from 'react';
-import { interpolateRgb, easeQuadIn, easeCubicIn, easePolyOut, easeLinear } from 'd3';
-
-const HexagonComponent = function(props){
-    let points = '';
-    for(let theta = Math.PI/10; theta <= 2 * Math.PI; theta += Math.PI/5){
-        if(points.length > 0) points += ', ';
-        points += (props.center.x + props.radius * Math.cos(theta)) +
-                    ', ' +
-                (props.center.y - props.radius * Math.sin(theta));
-    }
-    return(
-        <polygon points={points} 
-                 className={'sun-ring'}
-                 style={{fill: props.fill, stroke: 'none'}}
-                 transform={'rotate('+ Math.random() * 360 +', ' + props.center.x + ', ' + props.center.y + ')'}
-        >
-        </polygon>
-    )
-}
+import { interpolateRgb, easeQuadIn } from 'd3';
+import styled, { keyframes } from 'styled-components';
+import HexagonComponent from '../HexagonComponent';
 
 class SunComponent extends Component{
     constructor(props){
@@ -32,13 +16,14 @@ class SunComponent extends Component{
     render(){
         const hexagons = [];
         for(let i = this.state.rings; i > 0; i--){
-            hexagons.push(
-                <HexagonComponent 
-                        radius={this.state.radius * easeQuadIn(i / this.state.rings)} 
-                        center={this.props.center}
-                        fill={this.interpolator(i / this.state.rings)}
-                />
-            )
+            const Ring = <HexagonComponent 
+                                key={i}
+                                radius={this.state.radius * easeQuadIn(i / this.state.rings)} 
+                                center={this.props.center}
+                                fill={this.interpolator(i / this.state.rings)}
+                                index={i/this.state.rings}
+                        />
+            hexagons.push(Ring)
         }
         return(
             hexagons
