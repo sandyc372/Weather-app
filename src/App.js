@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Row, Col } from 'antd';
-import SvgComponent from './Components/SvgComponent';
+import SunnyDay from './Components/SunnyDay';
+import ClearNight from './Components/ClearNight';
 import '../node_modules/antd/dist/antd.css';
 import './App.css';
 
@@ -9,7 +10,7 @@ class App extends Component {
     return (
       <Row>
         <Col span={24}>
-          <SvgComponent/>
+          <ClearNight/>
         </Col>
       </Row>
     );

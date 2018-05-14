@@ -45,7 +45,7 @@ const SunRays = function(props){
     return rays;
 }
 
-class SvgComponent extends Component{
+class SunnyDay extends Component{
     constructor(props){
         super(props);
     }
@@ -69,10 +69,11 @@ class SvgComponent extends Component{
                 <SunComponent center={{x: window.innerWidth - 100, y: 100}}/> 
                 <SunRays center={{x: window.innerWidth - 100, y: 100}}
                         theta={Math.PI/8}
-                />   
+                />
+                 
             </svg>
         )
     }
 }
 
-export default SvgComponent;
+export default SunnyDay;
