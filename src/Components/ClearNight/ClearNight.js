@@ -1,97 +1,115 @@
 import React, { Component } from 'react';
-import $ from 'jquery';
-import Warp from 'warpjs';
-
-const svg = $(`<svg id="svg-element">
-		<circle cx="${window.innerWidth - 300}" cy="${400}" r="50.784" filter="url(#filter)" style="fill: #00fbd1; mix-blend-mode: multiply;"/>	
-</svg>`);
 
 const NightSky = function(props){
     return(
-        <rect x = {0}
-              y = {0}
+        <rect x={0} 
+              y={0}
               width={window.innerWidth}
-              height = {window.innerHeight}
-              fill = '#414345'>
-
+              height={window.innerHeight}
+              fill={props.fill}
+              stroke={props.stroke}
+        >
         </rect>
     )
 }
 
-const Moonshine = function(props){
-    return(
-        <circle cx = {props.center.x}
-              cy = {props.center.y}
-              r={props.radius}
-              fill = {props.fill}>
+const Stars = function(props){
+    return props.points.map((point, index) => (
+        <circle cx={point.x}
+                cy={point.y}
+                r={point.r}
+                fill="white"
+                opacity={0.6}
+                key={index}
+        >
+            <animate attributeName="r"
+                    values={`${point.r}; 0; ${point.r}`}
+                    dur={point.dur} 
+                    repeatCount="indefinite"
+            />
+        </circle>
+    ))
+}
 
+const MoonShine = function(props){
+    return(
+        <circle cx={props.center.x} 
+              cy={props.center.y}
+              r={props.radius}
+              fill={props.fill}
+              stroke={props.stroke}
+        >
         </circle>
     )
 }
 
-const Reflection = function(props){
-    return <path  d={props.d} fill={props.fill} filter={props.filter}/>
+const Moon = function(props){
+    const moveTo = {
+                        x: props.center.x + Math.cos(Math.PI/4) * props.radius,
+                        y: props.center.y - Math.cos(Math.PI/4) * props.radius
+                };
+    const lineTo = {
+                    x: props.center.x - Math.cos(Math.PI/4) * props.radius,
+                    y: props.center.y + Math.cos(Math.PI/4) * props.radius
+            }
+    return(
+        <React.Fragment>
+            <circle cx={props.center.x} 
+                cy={props.center.y}
+                r={props.radius}
+                fill={props.fill}
+                stroke={props.stroke}
+            >
+            </circle>
+            <path d={`M ${moveTo.x} ${moveTo.y}
+                      A ${props.radius} ${props.radius} 0 0 1 ${lineTo.x} ${lineTo.y}
+                      A ${props.radius + 5} ${props.radius + 5} 0 0 0 ${moveTo.x} ${moveTo.y}`}
+                  fill={'#a8c1cd'}
+                  stroke={'#a8c1cd'}
+            >
+            </path>
+        </React.Fragment>
+    )
 }
 
 class ClearNight extends Component{
     constructor(props){
         super(props);
-        this.state = {
-            d: ""
-        }
-        this.warp = new Warp(svg.get(0))
-
-        this.warp.interpolate(4)
-        this.warp.transform(([ x, y ]) => [ x, y, x ])
-
-        this.offset = 0
+        this.noOfStars = 500;
+        this.points = [];
+        for(let i = 0; i < this.noOfStars; i++)
+            this.points.push({x: Math.random() * window.innerWidth, 
+                         y: Math.random() * window.innerHeight,
+                         r: Math.random() * 3,
+                        dur: Math.random() + 1})
     }
-
-    componentDidMount(){
-        
-        this.renderReflection();
-    }
-
-    renderReflection(){
-
-        this.warp.transform(([ x, y, ox ]) => [ ox + 2 * Math.sin(x / 16 + this.offset), y, ox ])
-        this.setState(() => ({
-            d: $(svg).find('path').attr('d')
-        }))
-     
-        this.offset += 0.1
-        requestAnimationFrame(this.renderReflection.bind(this))
-
-    }
-
     render(){
-        return(
-            <svg height={window.innerHeight}
-                 width={window.innerWidth}
+        return (
+            <svg width={window.innerWidth}
+                 height={window.innerHeight}
             >
                 <defs>
-                    <radialGradient id="moonshine">
-                    <stop offset="0%" stopColor="#fff"/>
-                    <stop offset="120%" stopColor="#414345"/>
+                    <radialGradient id="moonShineGradient">
+                        <stop offset="0%" stopColor="#0c4b86"/>
+                        <stop offset="100%" stopColor="#131031"/>
                     </radialGradient>
                 </defs>
-                <filter id="reflect">
-                    <feTurbulence type="fractalNoise" baseFrequency="0.000001 0.13" numOctaves="1" result="warp"></feTurbulence>
-                    <feDisplacementMap xChannelSelector="R" yChannelSelector="G" scale="60" in="SourceGraphic" in2="warp"></feDisplacementMap>
-                </filter>
-                <NightSky/>
-                <Moonshine radius={100}
-                          fill={'url(#moonshine)'}
-                          center={{x: window.innerWidth - 300, y: 100}}
+                <NightSky fill={'#131031'} stroke={'#01064b'}/>
+                <MoonShine  center={{x: window.innerWidth-200, y: 150}}
+                            radius={window.innerWidth-200}
+                            fill={'url(#moonShineGradient)'} 
+                            stroke={'none'}
+                         
                 />
-                <Moonshine radius={50}
-                          fill={'white'}
-                          center={{x: window.innerWidth - 300, y: 100}}
+                <Stars points={this.points}/>
+                <Moon  center={{x: window.innerWidth-200, y: 150}}
+                            radius={85}
+                            fill={'#d7ebf4'} 
+                            stroke={'none'}
+                         
                 />
-                <Reflection filter={"url(#reflect)"} fill={'white'} d={this.state.d}/>
-
             </svg>
-        )
+        );
     }
 }
 
