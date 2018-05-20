@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Row, Col } from 'antd';
 import SunnyDay from './Components/SunnyDay';
 import ClearNight from './Components/ClearNight';
+import Windy from './Components/Windy';
 import '../node_modules/antd/dist/antd.css';
 import './App.css';
 
