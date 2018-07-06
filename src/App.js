@@ -16,16 +16,12 @@ class App extends Component {
         <Switch>
           <Route path='/weather'
             exact
-            render={(routeProps) => (
-              <Weather {...routeProps} />
-            )}
+            component={Weather}
           />
 
           <Route path='/forecast'
             exact
-            render={(routeProps) => (
-              <Forecast {...routeProps} />
-            )}
+            component={Forecast}
           />
 
           <Redirect to="/weather" />
