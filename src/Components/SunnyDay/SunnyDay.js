@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import SunComponent from '../SunComponent';
 import HexagonComponent from '../HexagonComponent';
+import TextComponent from '../TextComponent';
 import { easeQuadIn } from 'd3';
 
 const BlueSky = function(props){
@@ -70,7 +71,7 @@ class SunnyDay extends Component{
                 <SunRays center={{x: window.innerWidth - 100, y: 100}}
                         theta={Math.PI/8}
                 />
-                 
+                 <TextComponent data={this.props.data} x="100" y="100"/>
             </svg>
         )
     }

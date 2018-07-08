@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Row, Col, Button } from 'antd';
+import SunnyDay from '../Components/SunnyDay';
+import ClearNight from '../Components/ClearNight';
+import Windy from '../Components/Windy';
 import {
     fetchCurrentWeather
 } from '../actions/weatherActions';
@@ -10,15 +13,15 @@ class Weather extends Component {
         super(props);
     }
 
+    componentDidMount(){
+        this.props.fetchCurrentWeather(this.props.weather.city);
+    }
+
     render() {
         return (
-            <Row>
-                <Col span={24}>Current Weather</Col>
-                <Col span={24}>
-                    <Button onClick={() => this.props.fetchCurrentWeather(this.props.weather.city)}>Fetch weather data</Button>
-                </Col>
-                <Col span={24}>{JSON.stringify(this.props.weather)}</Col>
-            </Row>
+            this.props.weather.weatherData ? (
+                <SunnyDay data={this.props.weather.weatherData}/>
+            ) : null
         );
     }
 }
