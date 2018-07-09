@@ -71,7 +71,7 @@ class SunnyDay extends Component{
                 <SunRays center={{x: window.innerWidth - 100, y: 100}}
                         theta={Math.PI/8}
                 />
-                 <TextComponent data={this.props.data} x="100" y="100"/>
+                 <TextComponent data={this.props.data} x="50" y={window.innerHeight-130}/>
             </svg>
         )
     }

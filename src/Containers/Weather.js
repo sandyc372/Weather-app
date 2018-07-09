@@ -6,7 +6,7 @@ import ClearNight from '../Components/ClearNight';
 import Windy from '../Components/Windy';
 import {
     fetchCurrentWeather
-} from '../actions/weatherActions';
+} from '../Actions/weatherActions';
 
 class Weather extends Component {
     constructor(props) {
