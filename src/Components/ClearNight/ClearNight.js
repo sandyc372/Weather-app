@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import TextComponent from '../TextComponent';
 
 const NightSky = function(props){
     return(
@@ -108,6 +109,7 @@ class ClearNight extends Component{
                             stroke={'none'}
                          
                 />
+                <TextComponent data={this.props.data} x="50" y={window.innerHeight-130}/>
             </svg>
         );
     }

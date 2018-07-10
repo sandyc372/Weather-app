@@ -20,7 +20,7 @@ class Weather extends Component {
     render() {
         return (
             this.props.weather.weatherData ? (
-                <SunnyDay data={this.props.weather.weatherData}/>
+                <ClearNight data={this.props.weather.weatherData}/>
             ) : null
         );
     }
