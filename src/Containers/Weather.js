@@ -4,6 +4,7 @@ import { Row, Col, Button } from 'antd';
 import SunnyDay from '../Components/SunnyDay';
 import ClearNight from '../Components/ClearNight';
 import Windy from '../Components/Windy';
+import Rainy from '../Components/Rainy';
 import {
     fetchCurrentWeather
 } from '../Actions/weatherActions';
@@ -20,7 +21,7 @@ class Weather extends Component {
     render() {
         return (
             this.props.weather.weatherData ? (
-                <ClearNight data={this.props.weather.weatherData}/>
+                <Rainy data={this.props.weather.weatherData}/>
             ) : null
         );
     }
