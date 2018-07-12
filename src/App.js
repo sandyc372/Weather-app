@@ -11,11 +11,6 @@ class App extends Component {
     return (
       <BrowserRouter>
         <React.Fragment>
-          <Row style={{ position: 'fixed', padding: '1rem', opacity: '0.8' }} gutter={24}>
-            <Col span={8}>
-              <Input style={{width: '25vw'}} addonAfter={<Icon type="search" />} placeholder="Search city"/>
-            </Col>
-          </Row>
           <Switch>
             <Route path='/weather'
               exact
