@@ -7,7 +7,7 @@ import Windy from '../Components/Windy';
 import Rainy from '../Components/Rainy';
 import {
     fetchCurrentWeather
-} from '../Actions/weatherActions';
+} from '../actions/weatherActions';
 
 class Weather extends Component {
     constructor(props) {
