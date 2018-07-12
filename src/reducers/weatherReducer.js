@@ -1,7 +1,8 @@
 import {
     FETCH_CURRENT_WEATHER_REQUEST,
     FETCH_CURRENT_WEATHER_SUCCESS,
-    FETCH_CURRENT_WEATHER_FAILURE
+    FETCH_CURRENT_WEATHER_FAILURE,
+    SET_CITY
 } from '../constants/actionTypes';
 import { fromJS } from 'immutable';
 
@@ -10,15 +11,16 @@ export default function (state = {
     city: {
         "id": 1277333,
         "name": "Bangalore",
-        "country": "IN",
-        "coord": {
-            "lon": 77.603287,
-            "lat": 12.97623
-        }
+        "country": "IN"
     },
     weatherData: null
 }, action) {
     switch (action.type) {
+        case SET_CITY:
+            return {
+                ...state,
+                city: action.payload
+            }
         case FETCH_CURRENT_WEATHER_REQUEST:
             return {
                 ...state,
