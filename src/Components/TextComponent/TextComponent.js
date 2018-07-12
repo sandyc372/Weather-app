@@ -15,7 +15,7 @@ class TextComponent extends Component {
                     {`${this.props.data.weather[0].main}, ${this.props.data.weather[0].description} ${this.props.data.main.temp_max} / ${this.props.data.main.temp_min} \u2103`}
                 </text>
                 <text y="5.2vw"  fill={this.props.fill || 'white'} style={{fontSize: '1.4vw', fontFamily: 'Helvetica'}}>
-                    {`${this.props.data.name}`}
+                    {`${this.props.data.name}, ${this.props.data.sys.country}`}
                 </text>
             </g>
         )
