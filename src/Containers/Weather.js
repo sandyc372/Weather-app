@@ -20,18 +20,24 @@ class Weather extends Component {
         this.props.fetchCurrentWeather(this.props.weather.city);
     }
 
-    fetchWeatherByCityname(value){
+    fetchWeatherByCityname(value) {
         this.props.fetchCurrentWeather(this.props.weather.city, {
             findBy: 'name',
             value: value
         });
     }
 
+    range(rangeStart = 0, rangeEnd = 0, number = 0) {
+        return number >= rangeStart && number <= rangeEnd;
+    }
+
     renderWeather() {
         let weatherType = (this.props.weather.weatherData && this.props.weather.weatherData.weather[0].main) || null;
         if (this.props.weather.weatherData) {
             if (weatherType.match(new RegExp(`${weatherTypes.CLEAR}`, 'gi')))
-                return (<SunnyDay data={this.props.weather.weatherData} />)
+                if (this.range(this.props.weather.weatherData.sys.sunrise, this.props.weather.weatherData.sys.sunset, Date.now()/1000))
+                    return (<SunnyDay data={this.props.weather.weatherData} />)
+                else return (<ClearNight data={this.props.weather.weatherData} />)
             else if (weatherType.match(new RegExp(`${weatherTypes.CLOUDY}`, 'gi')))
                 return (<Rainy data={this.props.weather.weatherData} fill="#394256" />)
             else if (weatherType.match(new RegExp(`${weatherTypes.RAINY}`, 'gi')))
@@ -48,7 +54,7 @@ class Weather extends Component {
             <React.Fragment>
                 <Row style={{ position: 'fixed', padding: '1rem', opacity: '0.8' }} gutter={24}>
                     <Col span={8}>
-                        <Input.Search style={{ width: '25vw' }} placeholder="Search city" onSearch={value => this.fetchWeatherByCityname(value)} enterButton/>
+                        <Input.Search style={{ width: '25vw' }} placeholder="Search city" onSearch={value => this.fetchWeatherByCityname(value)} enterButton />
                     </Col>
                 </Row>
                 {

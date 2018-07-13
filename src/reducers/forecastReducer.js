@@ -11,10 +11,6 @@ export default function (state = {
         "id": 1277333,
         "name": "Bangalore",
         "country": "IN",
-        "coord": {
-            "lon": 77.603287,
-            "lat": 12.97623
-        }
     },
     forecastData: null
 }, action) {
