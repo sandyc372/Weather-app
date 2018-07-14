@@ -33,3 +33,10 @@ body{
     margin-top: 900px;
   }
 }
+.ant-table tr td, .ant-table tr th{
+  text-align: center;
+}
+.th{
+  border-right: 1px solid #e8e8e8;
+  border-bottom: 1px solid #e8e8e8;
+}
