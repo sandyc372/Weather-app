@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { fetchForecast } from '../actions/forecastActions';
 import api from '../constants/api';
 import ForecastGridComponent from '../Components/ForecastGridComponent';
+import ChartComponent from '../Components/ChartComponent';
 
 class Forecast extends Component {
     constructor(props) {
@@ -11,7 +12,7 @@ class Forecast extends Component {
         this.state = {
             forecastData: null,
             metadata: null,
-            vizType: 'grid'
+            vizType: 'chart'
         };
     }
 
@@ -89,7 +90,14 @@ class Forecast extends Component {
                                     getTime={this.getTime}
                                     loading={this.props.forecast.isFetching}
                                 />
-                                : null
+                                : this.state.vizType === 'chart' ?
+                                    <ChartComponent forecastData={this.state.forecastData}
+                                        metadata={this.state.metadata}
+                                        getDate={this.getDate}
+                                        getTime={this.getTime}
+                                        loading={this.props.forecast.isFetching}
+                                    />
+                                    : null
                         }
                     </Col>
                 </Row>
