@@ -52,17 +52,18 @@ class ChartComponent extends Component {
     render() {
         return (
             <Row>
-                <Col span={12}>
+                <Col span={24}>
                     {
                         Array.isArray(this.props.forecastData) && this.props.forecastData.length > 0 ?
                             <LineChartComponent
                                 data={this.props.forecastData}
                                 metadata={this.props.metadata}
+                                getDate={this.props.getDate}
+                                getTime={this.props.getTime}
                             />
                             : null
                     }
                 </Col>
-                <Col span={12}></Col>
             </Row>
         )
     }
