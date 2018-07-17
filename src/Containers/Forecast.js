@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Row, Col, Input, Table } from 'antd';
+import { Row, Col, Input, Select } from 'antd';
 import { connect } from 'react-redux';
 import { fetchForecast } from '../actions/forecastActions';
 import api from '../constants/api';
@@ -12,7 +12,8 @@ class Forecast extends Component {
         this.state = {
             forecastData: null,
             metadata: null,
-            vizType: 'chart'
+            vizType: 'grid',
+            variable: 'main.temp'
         };
     }
 
@@ -90,15 +91,51 @@ class Forecast extends Component {
                                     getTime={this.getTime}
                                     loading={this.props.forecast.isFetching}
                                 />
-                                : this.state.vizType === 'chart' ?
+                                : this.state.vizType.endsWith('chart') ?
                                     <ChartComponent forecastData={this.state.forecastData}
                                         metadata={this.state.metadata}
                                         getDate={this.getDate}
                                         getTime={this.getTime}
                                         loading={this.props.forecast.isFetching}
+                                        type={this.state.vizType}
+                                        variable={this.state.variable}
                                     />
                                     : null
                         }
+                    </Col>
+                </Row>
+                <Row style={{ padding: '0.5rem 1rem' }} gutter={24}>
+                    <Col span={1} offset={7}>
+                        Type
+                    </Col>
+                    <Col span={3}>
+                        <Select defaultValue="grid" style={{ width: '100%' }} onChange={(value) => this.setState(() => ({
+                            ...this.state,
+                            vizType: value
+                        }))}
+                        size="small"
+                        >
+                            <Select.Option value="grid">Grid</Select.Option>
+                            <Select.Option value="line-chart">Line chart</Select.Option>
+                            <Select.Option value="area-chart">Area chart</Select.Option>
+                        </Select>
+                    </Col>
+
+                    <Col span={2}>
+                        Variable
+                    </Col>
+                    <Col span={3}>
+                        <Select defaultValue="main.temp" style={{ width: '100%' }} onChange={(value) => this.setState(() => ({
+                            ...this.state,
+                            variable: value
+                        }))}
+                        size="small"
+                        >
+                            <Select.Option value="main.temp">Temperature</Select.Option>
+                            <Select.Option value="main.pressure">Pressure</Select.Option>
+                            <Select.Option value="rain.3h">Rain</Select.Option>
+                            <Select.Option value="main.humidity">Humidity</Select.Option>
+                        </Select>
                     </Col>
                 </Row>
             </React.Fragment>

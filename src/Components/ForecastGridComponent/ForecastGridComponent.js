@@ -101,7 +101,7 @@ class ForecastGridComponent extends Component {
                 rowKey={(record => record.dt_txt)}
                 pagination={false}
                 loading={this.props.loading}
-                scroll={{ y: 450 }}
+                scroll={{ y: 400 }}
                 bordered size={'small'} />
         )
     }
