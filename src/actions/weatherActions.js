@@ -70,7 +70,7 @@ export function fetchCurrentWeather(city, options) {
 
         console.log(parameters, options);
         //perform the request
-        dataFetcher(`http://${api.currentWeather.url}`, parameters).then((data) => {
+        dataFetcher(`https://${api.currentWeather.url}`, parameters).then((data) => {
 
             //If data is an array, get the first element
             data = Array.isArray(data) ? data[0] : data;

@@ -62,7 +62,7 @@ export function fetchForecast(city, options) {
         dispatch(fetchForecastRequest());
 
         //perform the request
-        dataFetcher(`http://${api.forecast.url}`, parameters).then((data) => {
+        dataFetcher(`https://${api.forecast.url}`, parameters).then((data) => {
 
             //If data is an array, get the first element
             data = Array.isArray(data) ? data[0] : data;

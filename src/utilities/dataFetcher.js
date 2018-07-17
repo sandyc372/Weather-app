@@ -1,11 +1,19 @@
 import cacheFactory from './cacheFactory';
 import hashGenerator from './hashGenerator';
-import queryString from 'query-string';
 import axios from 'axios';
 const cache = cacheFactory();
 
+const stringifyQuery = function(obj) {
+    var str = [];
+    for (var p in obj)
+      if (obj.hasOwnProperty(p)) {
+        str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+      }
+    return str.join("&");
+  }
+
 export default function (url, params) {
-    let string = url + (params && typeof params === 'object' ? ('?' + queryString.stringify(params)) : ''),
+    let string = url + (params && typeof params === 'object' ? ('?' + stringifyQuery(params)) : ''),
         hash = hashGenerator(string).toString();
     console.log(string, hash);
 
