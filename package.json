@@ -2,7 +2,7 @@
   "name": "weather-app",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://sandyc372.github.io/Weather-app", 
+  "homepage": "https://sandyc372.github.io/Weather-app", 
   "dependencies": {
     "antd": "^3.5.1",
     "axios": "^0.18.0",
